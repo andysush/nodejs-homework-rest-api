@@ -22,10 +22,14 @@ const userSchema = new Schema({
 		enum: ["starter", "pro", "business"],
 		default: "starter",
 	},
-	token: String,
 	owner: {
 		type: Schema.Types.ObjectId,
 		ref: "user",
+		required: true,
+	},
+	token: {
+		type: String,
+		default: "",
 	},
 });
 
