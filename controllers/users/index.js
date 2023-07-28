@@ -4,10 +4,12 @@ const signup = require("./signup");
 const signin = require("./signin");
 const getCurrent = require("./current");
 const logout = require("./logout");
+const updateSubscription = require("./updateSubscription");
 
 module.exports = {
 	signup: controllersWrapper(signup),
 	signin: controllersWrapper(signin),
 	getCurrent: controllersWrapper(getCurrent),
 	logout: controllersWrapper(logout),
+	updateSubscription: controllersWrapper(updateSubscription),
 };

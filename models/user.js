@@ -19,7 +19,7 @@ const userSchema = new Schema({
 	},
 	subscription: {
 		type: String,
-		enum: ["starter", "pro", "business"],
+		enum: subscriptionList,
 		default: "starter",
 	},
 	token: {
@@ -38,14 +38,21 @@ const userSigninSchema = Joi.object({
 	password: Joi.string().min(6).required(),
 });
 
-userSchema.post("save", handleMongooseError);
+const updateSubscriptionSchema = Joi.object({
+	subscription: Joi.string()
+		.valid(...subscriptionList)
+		.required(),
+});
 
-const User = model("user", userSchema);
+userSchema.post("save", handleMongooseError);
 
 const userSchemas = {
 	userSignupSchema,
 	userSigninSchema,
+	updateSubscriptionSchema,
 };
+
+const User = model("user", userSchema);
 
 module.exports = {
 	User,
