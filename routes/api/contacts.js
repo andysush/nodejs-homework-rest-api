@@ -4,8 +4,9 @@ const { validateBody, isValidId, authenticate } = require("../../middlewares");
 const { contactSchemas } = require("../../models");
 
 const contactRouter = express.Router();
+contactRouter.use(authenticate);
 
-contactRouter.get("/", authenticate, controllers.listContacts);
+contactRouter.get("/", controllers.listContacts);
 
 contactRouter.get("/:id", isValidId, controllers.getContactById);
 

@@ -21,10 +21,16 @@ const signin = async (req, res) => {
 	};
 
 	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
-	await User.findByIdAndUpdate(user.id, { token });
+	await User.findByIdAndUpdate(user.id, {
+		token,
+	});
 
 	res.json({
 		token,
+		user: {
+			email,
+			subscription: "starter",
+		},
 	});
 };
 
