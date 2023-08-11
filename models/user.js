@@ -5,7 +5,6 @@ const {
 	subscriptionList,
 } = require("../constants/user_constants");
 const Joi = require("joi");
-
 const userSchema = new Schema({
 	email: {
 		type: String,
@@ -30,6 +29,13 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	verify: {
+		type: Boolean,
+		default: false,
+	},
+	verificationToken: {
+		type: String,
+	},
 });
 
 const userSignupSchema = Joi.object({
@@ -48,12 +54,17 @@ const updateSubscriptionSchema = Joi.object({
 		.required(),
 });
 
+const userVerifyEmailSchema = Joi.object({
+	email: Joi.string().pattern(emailRegexp).required(),
+});
+
 userSchema.post("save", handleMongooseError);
 
 const userSchemas = {
 	userSignupSchema,
 	userSigninSchema,
 	updateSubscriptionSchema,
+	userVerifyEmailSchema,
 };
 
 const User = model("user", userSchema);
